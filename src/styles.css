@@ -1,3 +1,9 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 .pointer {
     cursor: pointer
+}
+
+.distance {
+    margin-top: 8%;
 }

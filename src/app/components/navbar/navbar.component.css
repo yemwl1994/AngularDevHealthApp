@@ -1,0 +1,23 @@
+li a{
+    font-size: 135% ;
+    
+}
+
+ul.navbar-nav > li {
+    padding-left: 30px
+}
+
+div.container>a{
+    font-size: 135%;
+}
+
+
+
+.bordering{
+    color: white;
+    font-size: 135%;
+}
+
+.fa-user-color {
+    color: white;
+}

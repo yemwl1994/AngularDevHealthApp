@@ -1,0 +1,184 @@
+
+  <fieldset class="scheduler-border">
+    <legend class="scheduler-border "><div class="font-weight-bold fonts-family">Sign Up</div></legend>
+    
+    <form #signUpForm="ngForm" (ngSubmit)="onSignUp(signUpForm)">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputUser" class="font-weight-bold">User Name</label>
+            <input type="email" class="form-control" id="inputUser" [(ngModel)]="signUp.username" name= "username" placeholder="username"
+            #userName="ngModel" 
+            [ngClass]="{'is-invalid':userName.errors && userName.touched}"
+            pattern="^[a-zA-Z0-9]+$"
+            maxlength="20"
+            minlength="5"
+            required>
+
+            <div [hidden]="!userName.errors?.required" class="invalid-feedback">
+                User Name required
+            </div>
+          
+            <div [hidden]="!userName.errors?.pattern" class="invalid-feedback">
+                User Name is not valid only alphanumeric characters are allowed
+            </div>
+
+            <div [hidden]="!userName.errors?.maxlength" class="invalid-feedback">
+                Max Length allowed is 15
+            </div>
+
+            <div [hidden]="!userName.errors?.minlength" class="invalid-feedback">
+                Min Length is 7
+            </div>
+
+            <div [hidden]="!userNameExist" class="invalid-feedback">
+                {{ userNameExist }} exist, choose another username
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="inputPassword" class="font-weight-bold">Password</label>
+            <input type="password" class="form-control" id="inputPassword" [(ngModel)]="signUp.password" name="password"placeholder="Password"
+            #userPassword="ngModel" 
+            [ngClass]="{'is-invalid':userPassword.errors && userPassword.touched}"
+            maxlength="45"
+            required>
+
+            <div [hidden]="!userPassword.errors?.required" class="invalid-feedback">
+                Password required
+            </div>
+
+            <div [hidden]="!userPassword.errors?.maxlength" class="invalid-feedback">
+                Password is too long
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label for="emailAddress" class="font-weight-bold">Email Address</label>
+            <input type="email" class="form-control" id="emailAddress" [(ngModel)]="signUp.email" name="email" placeholder="email@example.com"
+            #userEmail="ngModel" 
+            [ngClass]="{'is-invalid':userEmail.errors && userEmail.touched}"
+            required
+            maxlength="45"
+            pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+            >
+            <div [hidden]="!userEmail.errors?.required" class="invalid-feedback">
+                Email name required
+            </div>
+          
+            <div [hidden]="!userEmail.errors?.pattern" class="invalid-feedback">
+                Email is not valid
+            </div>
+
+            <div [hidden]="!userEmail.errors?.maxlength" class="invalid-feedback">
+                Email is too long
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="gender" class="font-weight-bold ">Gender</label>
+
+          <mat-radio-group class="radio-group"  [(ngModel)]="signUp.gender" name="gender" [required]="true"
+          #userGender="ngModel"
+          
+          >
+              <div class="card card-body ">
+              <mat-radio-button class="radio-button" *ngFor="let gen of genders" [value]="gen.value" >
+                {{gen.gender}}
+              </mat-radio-button>
+            </div> 
+          </mat-radio-group>
+
+          <div [hidden]="!userGender.errors?.required" class="invalid-feedback">
+              Gender is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputAddress" class="font-weight-bold">Address</label>
+          <input type="text" class="form-control" id="inputAddress" [(ngModel)]="signUp.address" name="address" placeholder="Jalan 11/39 ..."
+          #userAddress="ngModel"
+          [ngClass]="{'is-invalid':userAddress.errors && userAddress.touched}"
+          required
+          maxlength="100"
+          >
+
+          <div [hidden]="!userAddress.errors?.required" class="invalid-feedback">
+              Address is required
+          </div>
+
+          <div [hidden]="!userAddress.errors?.maxlength" class="invalid-feedback">
+              Address is too long
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <label for="inputAddress2">Address 2</label>
+          <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+        </div> -->
+        
+        <div class="form-row">
+
+          <div class="form-group col-md-5">
+            <label for="inputState" class="font-weight-bold">State</label>
+            <input type="text" class="form-control" id="inputState" [(ngModel)]="signUp.state" name="state"
+            #userState="ngModel"
+            [ngClass]="{'is-invalid':userState.errors && userState.touched}"
+            required
+            maxlength="20"
+            >
+
+            <div [hidden]="!userState.errors?.maxlength" class="invalid-feedback">
+                State is too long
+            </div>
+
+            <div [hidden]="!userState.errors?.required" class="invalid-feedback">
+                State required
+            </div>
+
+          </div>
+
+          <div class="form-group col-md-2">
+            <label for="inputPost" class="font-weight-bold">Post Code</label>
+            <input type="text" class="form-control" id="inputPost" [(ngModel)]="signUp.postcode" name="postcode"
+            #userPost="ngModel"
+            required
+            maxlength="8"
+            [ngClass]="{'is-invalid':userPost.errors && userPost.touched}"
+            >
+
+            <div [hidden]="!userPost.errors?.maxlength" class="invalid-feedback">
+                Post Code is too long
+            </div>
+
+            <div [hidden]="!userPost.errors?.required" class="invalid-feedback">
+                Post Code required
+            </div>  
+          </div>
+
+          <div class="form-group col-md-5 ">
+            <label for="country" class="font-weight-bold">Country</label>
+            <input type="text" class="form-control" id="inputCountry" [(ngModel)]="signUp.country" name="country"
+            #userCountry="ngModel"
+            required
+            maxlength="20"
+            [ngClass]="{'is-invalid':userCountry.errors && userCountry.touched}"
+            >
+
+            <div [hidden]="!userCountry.errors?.maxlength" class="invalid-feedback">
+                Country is too long
+            </div>
+
+            <div [hidden]="!userCountry.errors?.required" class="invalid-feedback">
+                Country required
+            </div>
+          </div>
+
+        </div>
+
+        <button [disabled]="!signUpForm.form.valid || buttonDisabled" type="submit" class="btn btn-danger btn-block pointer">Sign Up</button>
+      </form>
+  </fieldset>
+
+
+
