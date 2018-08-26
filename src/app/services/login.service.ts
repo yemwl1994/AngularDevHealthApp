@@ -20,6 +20,7 @@ export class LoginService {
   log: Login;
   userinfo: Userinfo;
   userInfo = new BehaviorSubject<Userinfo>({});
+  currentUser = this.userInfo.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -36,6 +37,10 @@ export class LoginService {
 
   logOutUser() {
     this.userInfo.next({});
+  }
+
+  getUserInfo(){
+    return this.currentUser;
   }
 
 }

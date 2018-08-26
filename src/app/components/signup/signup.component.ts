@@ -51,13 +51,12 @@ export class SignupComponent implements OnInit {
 
     this.signUpService.submitSignUp(value).subscribe(
       retrieveStatus => {
-        console.log(value);
         
         if (retrieveStatus.success) {
           this.form.reset();
           this.userNameExist = '';
           this.endState();
-          this.toastr.success('Congratz!', 'Success Registration', {timeOut:3000, closeButton: true});
+          this.toastr.success('Congratz!', 'Success Registration', {timeOut: 3000, closeButton: true});
           this.router.navigate(['/']);
 
         }

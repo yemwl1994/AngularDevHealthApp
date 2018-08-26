@@ -1,0 +1,71 @@
+
+<button type="button" class="btn btn-primary" (click)="openModal(template)">Open modal</button>
+<br><br>
+<!-- <pre class="card card-block card-header">{{message}}</pre> -->
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to confirm?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+  </div>
+</ng-template>
+
+
+ <!-- <agm-map [latitude]="latitude" [longitude]="longitude">  
+  <agm-marker [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(infoWindow)"></agm-marker>  
+</agm-map>  -->
+
+
+<accordion>
+    <accordion-group class="pointer" *ngFor='let state of states' [heading]= 'state.state' panelClass="bg-custom" (isOpenChange)="loadDocInfo($event,state.state)">
+
+            <accordion-group    *ngFor='let doc of doctorsInfo[state.state]' heading="Dr. {{doc.name}}">
+                <div class="row">
+                    <div class="col-md-6">        
+                            <table class="table">
+
+                                    <tbody>
+                                      <tr>
+                                            <td class="font-weight-bold">Gender</td>
+                                            <td class="font-weight-bold">{{doc.gender}}</td>
+                                      </tr>
+                                      <tr>
+                                            <td class="font-weight-bold">Address</td>
+                                            <td class="font-weight-bold">{{doc.clinicAddress}}</td>
+                                      </tr>
+                                      <tr>
+                                            <td class="font-weight-bold">Operating Hours</td>
+                                            <td class="font-weight-bold">{{doc.openHr}} - {{doc.closeHr}}</td>
+                                       </tr>
+                                       <tr>
+                                            <td class="font-weight-bold">Contact No.</td>
+                                            <td class="font-weight-bold">{{doc.contactNo}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-weight-bold">Waiting Patient</td>
+                                            <td class="font-weight-bold">{{doc.waitingPatient}}</td>
+                                        </tr>
+                                    </tbody>
+
+                            </table>
+                    </div>
+                    <div class="col-md-6">
+                        <agm-map [latitude]='doc.lat' [longitude]='doc.longi'>  
+                            <agm-marker [latitude]='doc.lat' [longitude]='doc.longi'></agm-marker>  
+                        </agm-map> 
+                    </div>
+                </div>
+                <br><br>
+                <div class="row">
+                    
+                    <div class="checkbox ml-4">
+                        <label class='font-italic black font-weight-bold'><input type="checkbox" #checkbox>  Do you need transportation service ? Hassle-Free Mobility. Right On Your Doorstep  </label>
+                    </div>
+                </div>
+                <div class="row ml-4 mr-4">
+                    <button class="btn btn-block btn-success" (click)='onBooking(checkbox.checked,docInfo.id)'>Book An Appointment</button>
+                </div>
+            </accordion-group>
+       
+    </accordion-group>
+</accordion>
