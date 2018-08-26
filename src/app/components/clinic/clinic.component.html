@@ -1,21 +1,16 @@
 
-<button type="button" class="btn btn-primary" (click)="openModal(template)">Open modal</button>
-<br><br>
-<!-- <pre class="card card-block card-header">{{message}}</pre> -->
-<ng-template #template>
-  <div class="modal-body text-center">
-    <p>Do you want to confirm?</p>
-    <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
-    <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
-  </div>
-</ng-template>
+<input type="hidden"  (click)="openModal(template)" id="hiddenModalButton"/>
+
+
+
 
 
  <!-- <agm-map [latitude]="latitude" [longitude]="longitude">  
   <agm-marker [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(infoWindow)"></agm-marker>  
 </agm-map>  -->
 
-
+<h1 class="text-center text-primary font-weight-bold font-styling">Clinics in Malaysia</h1>
+<br>
 <accordion>
     <accordion-group class="pointer" *ngFor='let state of states' [heading]= 'state.state' panelClass="bg-custom" (isOpenChange)="loadDocInfo($event,state.state)">
 
@@ -63,9 +58,23 @@
                     </div>
                 </div>
                 <div class="row ml-4 mr-4">
-                    <button class="btn btn-block btn-success" (click)='onBooking(checkbox.checked,docInfo.id)'>Book An Appointment</button>
+                    <button class="btn btn-block btn-success" (click)='onBooking(checkbox.checked,doc.id)'>Book An Appointment</button>
                 </div>
             </accordion-group>
        
     </accordion-group>
 </accordion>
+
+<ng-template #template>
+        <div class="modal-lg">
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">Confirmation Appointment</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              This is your booking reference no. {{ bookingRefId }}. Please present it at the clinic's counter upon registration to confirm your attendance
+            </div>
+        </div>
+    </ng-template>

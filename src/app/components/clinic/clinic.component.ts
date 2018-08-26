@@ -4,11 +4,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { GendocinfoService } from '../../services/gendocinfo.service';
 import { LoginService } from '../../services/login.service';
 import { BookingService } from '../../services/booking.service';
-import { Gendoc } from '../../models/gendoc';
+//import { Gendoc } from '../../models/gendoc';
 import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Booking } from '../../models/booking';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-clinic',
@@ -23,15 +24,17 @@ export class ClinicComponent implements OnInit {
   doctorsInfo =  {};
   bgcustom: string = 'bg-custom';
   userId: number;
-  bookInfo: Booking;
-  bookingRefId: string;
+  bookInfo: Booking = {};
+  bookingRefId?: string;
+  modalRef: BsModalRef;
 
   constructor(private genInfo: GendocinfoService,
               private spinnerService: NgxSpinnerService,
               private loginService: LoginService,
               private bookingService: BookingService,
               private toastr: ToastrService,
-              private router: Router) { }
+              private router: Router,
+              private modalService: BsModalService) { }
 
   ngOnInit() {
     // this.latitude= parseFloat('3.215317');
@@ -41,16 +44,14 @@ export class ClinicComponent implements OnInit {
         state.forEach((extractState) =>{
           this.doctorsInfo[extractState.state] = [];
         });
-        
+
     });
+    
   }
 
-  clickAccordion(state: String){
-    // trigger search doctor info from DB
-  }
 
   loadDocInfo(event:boolean,state: string){
-    if(event) {
+    if(event && JSON.stringify(this.doctorsInfo[state]) === '[]') {
       this.genInfo.getDocList(state).subscribe( (docInfos) => {
         docInfos.forEach((docInfo) => {
 
@@ -62,31 +63,44 @@ export class ClinicComponent implements OnInit {
     }
   }
 
-  makeBooking(transportService: boolean, docId: number){
+  onBooking(transportService: boolean, docId: number){
 
-    this.loginService.getUserInfo().subscribe(userInfo =>{
-      if(JSON.stringify(userInfo) === '{}'){
+    let request = false;
+    this.loginService.getUserInfo().subscribe(userInfo => {
+ 
+      if(JSON.stringify(userInfo) == '{}'){
         this.toastr.warning('', 'Kindly Login before Proceed',{timeOut:4000, closeButton: true});
-        return;
       }else{
+        
         this.userId = userInfo.id;
+        request = true;
       }
     });
+    if(request){
+      this.spinnerService.show();
+      this.bookInfo['transportService'] = transportService;
+      this.bookInfo['docId'] = docId;
+      this.bookInfo['userId'] = this.userId;
 
-    this.bookInfo['transportService'] = transportService;
-    this.bookInfo['docId'] = docId;
-    this.bookInfo['userId'] = this.userId;
-
-    this.bookingService.submitBooking(this.bookInfo).subscribe((subStatus)=>{
-      if(subStatus.success && subStatus.bookingfRefId){
-          this.bookingRefId = subStatus.bookingfRefId;
+      this.bookingService.submitBooking(this.bookInfo).subscribe((subStatus)=>{
+        console.log(subStatus);
+        if(subStatus.success == true){
+            this.bookingRefId = subStatus.bookingRefId;
+            this.bookInfo = {};
+            console.log(this.bookingRefId);
+            $('#hiddenModalButton').click();
+            // trigger Modal
+        }else{
+          this.toastr.error('Try Again', 'Failed Confirmation',{timeOut: 4000, closeButton: true});
           this.bookInfo = {};
-          // trigger Modal
-      }else{
-        this.toastr.error('Try Again', 'Failed Confirmation',{timeOut: 4000, closeButton: true});
-        this.bookInfo = {};
-      }
-    });
+        }
+        this.spinnerService.hide();
+      });
+    }
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 
 

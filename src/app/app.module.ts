@@ -19,12 +19,14 @@ import { LoginComponent } from './components/login/login.component';
 
 import { SignupComponent } from './components/signup/signup.component';
 import { ClinicComponent } from './components/clinic/clinic.component';
+import { SpecialistsComponent } from './components/specialists/specialists.component';
 
 
 import { LoginService } from './services/login.service';
 import { SignupService } from './services/signup.service';
 import { GendocinfoService } from './services/gendocinfo.service';
 import { BookingService } from './services/booking.service';
+
 
 
 
@@ -36,7 +38,8 @@ import { BookingService } from './services/booking.service';
     HomeComponent,
     LoginComponent,
     SignupComponent,
-    ClinicComponent
+    ClinicComponent,
+    SpecialistsComponent
   ],
   imports: [
     BrowserModule,

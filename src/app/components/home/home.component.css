@@ -1,0 +1,10 @@
+#medicalTech{
+    width : 60%;
+    height: 60%;
+    z-index:-1;
+    float: left
+}
+
+.font-stylings{
+    font-family: comic sans ms;
+}
