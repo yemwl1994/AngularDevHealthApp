@@ -37,8 +37,7 @@ export class ClinicComponent implements OnInit {
               private modalService: BsModalService) { }
 
   ngOnInit() {
-    // this.latitude= parseFloat('3.215317');
-    // this.longitude= parseFloat('101.642765');
+
     this.genInfo.getStateList().subscribe(state => {
         this.states = state;
         state.forEach((extractState) =>{

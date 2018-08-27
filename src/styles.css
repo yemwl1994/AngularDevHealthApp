@@ -8,10 +8,40 @@
     margin-top: 8%;
 }
 
-.bg-custom{
-    color: blue;
-    background-color: #E1E9F0;
+.border-custom{ 
+    /* color: blue; */
+    /* background-color: #E1E9F0;
     border: 2px solid #D2DAE1;
-    text-decoration: none;
+    text-decoration: none; */
+    border-color: #007bff !important;
+    border-width:3px
+   
+
+      
    
 }
+/* #e5efff */
+.bg-custom {
+    background-color: #eaf1fc !important;
+  }
+
+  /* .panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  } */
+
+
+/* 
+  .card.customClass,
+.card.customClass .card-header,
+.panel.customClass {
+  background-color: #5bc0de;
+  color: #fff;
+}
+.panel.customClass .panel-body {
+  background-color: #337aa7;
+} */

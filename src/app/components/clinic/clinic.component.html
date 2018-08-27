@@ -4,7 +4,6 @@
 
 
 
-
  <!-- <agm-map [latitude]="latitude" [longitude]="longitude">  
   <agm-marker [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(infoWindow)"></agm-marker>  
 </agm-map>  -->
@@ -12,7 +11,9 @@
 <h1 class="text-center text-primary font-weight-bold font-styling">Clinics in Malaysia</h1>
 <br>
 <accordion>
-    <accordion-group class="pointer" *ngFor='let state of states' [heading]= 'state.state' panelClass="bg-custom" (isOpenChange)="loadDocInfo($event,state.state)">
+    <accordion-group class="pointer" *ngFor='let state of states' [heading]= 'state.state' 
+            panelClass="card card-title text-primary bg-custom border-primary " 
+            (isOpenChange)="loadDocInfo($event,state.state)">
 
             <accordion-group    *ngFor='let doc of doctorsInfo[state.state]' heading="Dr. {{doc.name}}">
                 <div class="row">
